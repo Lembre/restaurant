@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.TableOrderMapper">
+  <resultMap id="BaseResultMap" type="entity.TableOrder">
+    <id column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="dish_ids" jdbcType="VARCHAR" property="dishIds" />
+    <result column="nums" jdbcType="INTEGER" property="nums" />
+    <result column="prices" jdbcType="DOUBLE" property="prices" />
+    <result column="all_price" jdbcType="DOUBLE" property="allPrice" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column=" address" jdbcType="VARCHAR" property="address" />
+    <result column="shop_name" jdbcType="VARCHAR" property="shopName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    order_id, user_id, dish_ids, nums, prices, all_price, create_time, " address", shop_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from table_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from table_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="entity.TableOrder">
+    insert into table_order (order_id, user_id, dish_ids, 
+      nums, prices, all_price, 
+      create_time, " address", shop_name
+      )
+    values (#{orderId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{dishIds,jdbcType=VARCHAR}, 
+      #{nums,jdbcType=INTEGER}, #{prices,jdbcType=DOUBLE}, #{allPrice,jdbcType=DOUBLE}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR}, #{shopName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="entity.TableOrder">
+    insert into table_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="dishIds != null">
+        dish_ids,
+      </if>
+      <if test="nums != null">
+        nums,
+      </if>
+      <if test="prices != null">
+        prices,
+      </if>
+      <if test="allPrice != null">
+        all_price,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="address != null">
+        " address",
+      </if>
+      <if test="shopName != null">
+        shop_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="dishIds != null">
+        #{dishIds,jdbcType=VARCHAR},
+      </if>
+      <if test="nums != null">
+        #{nums,jdbcType=INTEGER},
+      </if>
+      <if test="prices != null">
+        #{prices,jdbcType=DOUBLE},
+      </if>
+      <if test="allPrice != null">
+        #{allPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="shopName != null">
+        #{shopName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="entity.TableOrder">
+    update table_order
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="dishIds != null">
+        dish_ids = #{dishIds,jdbcType=VARCHAR},
+      </if>
+      <if test="nums != null">
+        nums = #{nums,jdbcType=INTEGER},
+      </if>
+      <if test="prices != null">
+        prices = #{prices,jdbcType=DOUBLE},
+      </if>
+      <if test="allPrice != null">
+        all_price = #{allPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null">
+        " address" = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="shopName != null">
+        shop_name = #{shopName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="entity.TableOrder">
+    update table_order
+    set user_id = #{userId,jdbcType=INTEGER},
+      dish_ids = #{dishIds,jdbcType=VARCHAR},
+      nums = #{nums,jdbcType=INTEGER},
+      prices = #{prices,jdbcType=DOUBLE},
+      all_price = #{allPrice,jdbcType=DOUBLE},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      " address" = #{address,jdbcType=VARCHAR},
+      shop_name = #{shopName,jdbcType=VARCHAR}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+</mapper>

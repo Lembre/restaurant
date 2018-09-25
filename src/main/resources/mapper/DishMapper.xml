@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.DishMapper">
+  <resultMap id="BaseResultMap" type="entity.Dish">
+    <id column="dish_id" jdbcType="VARCHAR" property="dishId" />
+    <result column="dish_name" jdbcType="VARCHAR" property="dishName" />
+    <result column="dish_price" jdbcType="DOUBLE" property="dishPrice" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    dish_id, dish_name, dish_price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dish
+    where dish_id = #{dishId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from dish
+    where dish_id = #{dishId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="entity.Dish">
+    insert into dish (dish_id, dish_name, dish_price
+      )
+    values (#{dishId,jdbcType=VARCHAR}, #{dishName,jdbcType=VARCHAR}, #{dishPrice,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="entity.Dish">
+    insert into dish
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dishId != null">
+        dish_id,
+      </if>
+      <if test="dishName != null">
+        dish_name,
+      </if>
+      <if test="dishPrice != null">
+        dish_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dishId != null">
+        #{dishId,jdbcType=VARCHAR},
+      </if>
+      <if test="dishName != null">
+        #{dishName,jdbcType=VARCHAR},
+      </if>
+      <if test="dishPrice != null">
+        #{dishPrice,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="entity.Dish">
+    update dish
+    <set>
+      <if test="dishName != null">
+        dish_name = #{dishName,jdbcType=VARCHAR},
+      </if>
+      <if test="dishPrice != null">
+        dish_price = #{dishPrice,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where dish_id = #{dishId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="entity.Dish">
+    update dish
+    set dish_name = #{dishName,jdbcType=VARCHAR},
+      dish_price = #{dishPrice,jdbcType=DOUBLE}
+    where dish_id = #{dishId,jdbcType=VARCHAR}
+  </update>
+</mapper>

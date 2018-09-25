@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ConsumeRecordsMapper">
+  <resultMap id="BaseResultMap" type="entity.ConsumeRecords">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="card_id" jdbcType="INTEGER" property="cardId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="monetary" jdbcType="DOUBLE" property="monetary" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, card_id, create_time, monetary
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from consumerecords
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from consumerecords
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="entity.ConsumeRecords">
+    insert into consumerecords (id, card_id, create_time, 
+      monetary)
+    values (#{id,jdbcType=INTEGER}, #{cardId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{monetary,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="entity.ConsumeRecords">
+    insert into consumerecords
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cardId != null">
+        card_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="monetary != null">
+        monetary,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cardId != null">
+        #{cardId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="monetary != null">
+        #{monetary,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="entity.ConsumeRecords">
+    update consumerecords
+    <set>
+      <if test="cardId != null">
+        card_id = #{cardId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="monetary != null">
+        monetary = #{monetary,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="entity.ConsumeRecords">
+    update consumerecords
+    set card_id = #{cardId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      monetary = #{monetary,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

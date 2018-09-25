@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ShopMapper">
+  <resultMap id="BaseResultMap" type="entity.Shop">
+    <id column="shop_id" jdbcType="VARCHAR" property="shopId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    shop_id, name, phone, address, description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shop
+    where shop_id = #{shopId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from shop
+    where shop_id = #{shopId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="entity.Shop">
+    insert into shop (shop_id, name, phone, 
+      address, description)
+    values (#{shopId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="entity.Shop">
+    insert into shop
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="shopId != null">
+        shop_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="shopId != null">
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="entity.Shop">
+    update shop
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where shop_id = #{shopId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="entity.Shop">
+    update shop
+    set name = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR}
+    where shop_id = #{shopId,jdbcType=VARCHAR}
+  </update>
+</mapper>
