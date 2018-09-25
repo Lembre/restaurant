@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--配置spring mvc-->
+    <!--1,开启springmvc注解模式
+    a.自动注册DefaultAnnotationHandlerMapping,AnnotationMethodHandlerAdapter
+    b.默认提供一系列的功能:数据绑定，数字和日期的format@NumberFormat,@DateTimeFormat
+    c:xml,json的默认读写支持-->
+    <!--mvc的注解驱动器，通过它可以替代处理器映射器和适配器-->
+    <mvc:annotation-driven/>
+
+    <!--2.静态资源默认servlet配置-->
+    <!--
+        1).加入对静态资源处理：js,gif,png
+        2).允许使用 "/" 做整体映射
+    -->
+    <mvc:default-servlet-handler/>
+
+    <!--3：配置JSP 显示ViewResolver视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--4:扫描web相关的bean-->
+    <context:component-scan base-package="web"/>
+
+
+    <!--下面是增加功能后添加的配置项-->
+
+
+    <!-- 注册属性编辑器 -->
+   <!-- <bean id="customPropertyEditor" class="web.propertyeditor.CustomPropertyEditor"></bean>-->
+
+
+    <!-- 自定义webBinder -->
+    <!--<bean id="customBinder" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+    <property name="conversionService" ref="conversionService" />
+</bean>-->
+
+    <!--适配器-->
+   <!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="webBindingInitializer" ref="customBinder"></property>
+    </bean>-->
+
+    <!-- 注解处理器映射器 -->
+    <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>-->
+
+    <!--转换器-->
+    <!-- conversionService -->
+    <!--<bean id="conversionService"
+          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        &lt;!&ndash; 转换器 &ndash;&gt;
+        <property name="converters">
+            <list>
+                <bean class="web.converter.CustomDateConverter"/>
+                <bean class="web.converter.StringTrimConverter"/>
+            </list>
+        </property>
+    </bean>-->
+
+    <!-- 配置一个注解驱动，如果配置此标签，那么就可以不用配置处理器映射器和处理器适配器，
+     如果使用<mvc:annotation-driven/><，可以在此标签上进行扩展-->
+   <!-- <mvc:annotation-driven conversion-service="conversionService"/>-->
+
+
+    <!--下面是SSM高级注解添加的内容-->
+
+    <!-- 文件上传
+   CommonsMultipartResolver依赖我们传入的fileupload jar包-->
+    <!--<bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        &lt;!&ndash; 设置上传文件的最大尺寸为5MB &ndash;&gt;
+        <property name="maxUploadSize">
+            <value>5242880</value>
+        </property>
+    </bean>-->
+
+
+    <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        &lt;!&ndash;加入json数据的消息转换器
+        MappingJacksonHttpMessageConverter依赖jackson的两个jar包&ndash;&gt;
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>
+            </list>
+        </property>
+    </bean>-->
+
+</beans>
