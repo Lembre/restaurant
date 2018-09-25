@@ -1,6 +1,6 @@
 package dao;
 
-import entity.RUser;
+import entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +14,15 @@ import static org.junit.Assert.*;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
-public class RUserMapperTest {
+public class UserMapperTest {
 
     @Autowired
-    private RUserMapper rUserMapper;
+    private UserMapper userMapper;
 
     @Test
     public void selectByPrimaryKey() {
         Integer id = 1;
-        RUser rUser = rUserMapper.selectByPrimaryKey(id);
-        System.out.println(rUser);
+        User user = userMapper.selectByPrimaryKey(id);
+        System.out.println(user);
     }
 }

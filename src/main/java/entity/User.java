@@ -1,6 +1,6 @@
 package entity;
 
-public class RUser {
+public class User {
     private Integer userId;
 
     private String username;
@@ -29,14 +29,5 @@ public class RUser {
 
     public void setPhone(String phone) {
         this.phone = phone == null ? null : phone.trim();
-    }
-
-    @Override
-    public String toString() {
-        return "RUser{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", phone='" + phone + '\'' +
-                '}';
     }
 }
